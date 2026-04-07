@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Musicala | Guía Docente Kick Boxing</title>
+  <style>
+    :root {
+      --bg: #f6f3ff;
+      --bg-soft: #fcfbff;
+      --surface: #ffffff;
+      --surface-2: #f4edff;
+      --text: #24115f;
+      --text-soft: #5d4f8a;
+      --primary: #6b3df0;
+      --primary-2: #8c52ff;
+      --accent: #f2a33a;
+      --accent-soft: #fff2df;
+      --danger: #dc4c64;
+      --danger-soft: #ffe8ed;
+      --success: #21a67a;
+      --success-soft: #e9fbf4;
+      --border: rgba(107, 61, 240, 0.12);
+      --shadow: 0 12px 30px rgba(67, 33, 140, 0.12);
+      --radius-xl: 24px;
+      --radius-lg: 18px;
+      --radius-md: 14px;
+      --radius-sm: 10px;
+      --sidebar-width: 290px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", "Poppins", Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(140, 82, 255, 0.14), transparent 22%),
+        radial-gradient(circle at bottom right, rgba(242, 163, 58, 0.14), transparent 18%),
+        var(--bg);
+      color: var(--text);
+    }
+
+    .app {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: var(--sidebar-width) 1fr;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      padding: 26px 20px;
+      background: rgba(255, 255, 255, 0.78);
+      backdrop-filter: blur(14px);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .brand {
+      background: linear-gradient(180deg, #ffffff, #f6f0ff);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 18px 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .brand img {
+      width: 100%;
+      max-width: 170px;
+      display: block;
+      margin: 0 auto 12px;
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: 1.05rem;
+      text-align: center;
+      color: var(--text);
+    }
+
+    .brand p {
+      margin: 8px 0 0;
+      text-align: center;
+      color: var(--text-soft);
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+
+    .menu {
+      display: grid;
+      gap: 10px;
+    }
+
+    .menu button {
+      width: 100%;
+      border: 0;
+      background: transparent;
+      color: var(--text);
+      text-align: left;
+      padding: 14px 14px;
+      border-radius: 14px;
+      font-size: 0.96rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.22s ease;
+    }
+
+    .menu button:hover,
+    .menu button.active {
+      background: linear-gradient(90deg, rgba(107, 61, 240, 0.12), rgba(242, 163, 58, 0.10));
+      color: var(--primary);
+      transform: translateX(2px);
+    }
+
+    .side-note {
+      margin-top: auto;
+      padding: 16px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, #fff9f0, #ffffff);
+      border: 1px solid rgba(242, 163, 58, 0.22);
+      color: #6f4d12;
+      font-size: 0.9rem;
+      line-height: 1.45;
+    }
+
+    .main {
+      padding: 28px;
+    }
+
+    .hero {
+      background:
+        linear-gradient(135deg, rgba(107, 61, 240, 0.96), rgba(140, 82, 255, 0.88) 58%, rgba(237, 0, 122, 0.85));
+      border-radius: 30px;
+      padding: 30px;
+      color: white;
+      box-shadow: 0 20px 40px rgba(93, 39, 190, 0.20);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      right: -60px;
+      top: -70px;
+      background: radial-gradient(circle, rgba(255,255,255,0.22), transparent 65%);
+      border-radius: 50%;
+    }
+
+    .hero-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: flex-start;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero h2 {
+      margin: 0 0 10px;
+      font-size: clamp(1.7rem, 3vw, 2.5rem);
+      line-height: 1.08;
+    }
+
+    .hero p {
+      margin: 0;
+      max-width: 760px;
+      color: rgba(255,255,255,0.92);
+      line-height: 1.6;
+      font-size: 1rem;
+    }
+
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .badge {
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.16);
+      border: 1px solid rgba(255,255,255,0.18);
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    .quick-box {
+      min-width: 220px;
+      background: rgba(255,255,255,0.14);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 22px;
+      padding: 16px;
+      backdrop-filter: blur(8px);
+    }
+
+    .quick-box strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 0.95rem;
+    }
+
+    .quick-box span {
+      display: block;
+      font-size: 0.92rem;
+      color: rgba(255,255,255,0.92);
+      line-height: 1.5;
+    }
+
+    .content-grid {
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .panel,
+    .section {
+      background: rgba(255,255,255,0.82);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+    }
+
+    .panel {
+      padding: 22px;
+    }
+
+    .panel h3,
+    .section h3 {
+      margin: 0 0 12px;
+      font-size: 1.2rem;
+      color: var(--text);
+    }
+
+    .panel p {
+      margin: 0;
+      color: var(--text-soft);
+      line-height: 1.6;
+    }
+
+    .mini-cards {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .mini-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 16px;
+    }
+
+    .mini-card .icon {
+      font-size: 1.35rem;
+      margin-bottom: 8px;
+    }
+
+    .mini-card h4 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+      color: var(--text);
+    }
+
+    .mini-card p {
+      margin: 0;
+      color: var(--text-soft);
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+
+    .section {
+      display: none;
+      padding: 24px;
+      margin-top: 22px;
+    }
+
+    .section.active {
+      display: block;
+      animation: fadeIn 0.25s ease;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: var(--surface-2);
+      color: var(--primary);
+      font-size: 0.85rem;
+      font-weight: 700;
+      border: 1px solid var(--border);
+    }
+
+    .callout {
+      padding: 16px 18px;
+      border-radius: 16px;
+      margin: 16px 0;
+      line-height: 1.55;
+      font-size: 0.96rem;
+    }
+
+    .callout.primary {
+      background: linear-gradient(180deg, #f4edff, #ffffff);
+      border: 1px solid rgba(107, 61, 240, 0.18);
+      color: var(--text);
+    }
+
+    .callout.warning {
+      background: var(--danger-soft);
+      border: 1px solid rgba(220, 76, 100, 0.18);
+      color: #8d2840;
+    }
+
+    .callout.success {
+      background: var(--success-soft);
+      border: 1px solid rgba(33, 166, 122, 0.18);
+      color: #147356;
+    }
+
+    .check-list,
+    .bullet-list {
+      display: grid;
+      gap: 10px;
+      padding: 0;
+      margin: 16px 0 0;
+      list-style: none;
+    }
+
+    .check-list li,
+    .bullet-list li {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 14px 16px;
+      border-radius: 14px;
+      color: var(--text-soft);
+      line-height: 1.5;
+    }
+
+    .check-list li strong,
+    .bullet-list li strong {
+      color: var(--text);
+    }
+
+    .steps {
+      display: grid;
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 54px 1fr;
+      gap: 14px;
+      align-items: start;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 14px;
+    }
+
+    .step-number {
+      width: 54px;
+      height: 54px;
+      display: grid;
+      place-items: center;
+      border-radius: 16px;
+      background: linear-gradient(135deg, var(--primary), #ed007a);
+      color: white;
+      font-weight: 800;
+      font-size: 1rem;
+      box-shadow: 0 10px 18px rgba(107, 61, 240, 0.22);
+    }
+
+    .step h4 {
+      margin: 0 0 6px;
+      color: var(--text);
+      font-size: 1rem;
+    }
+
+    .step p {
+      margin: 0;
+      color: var(--text-soft);
+      line-height: 1.55;
+    }
+
+    .quote {
+      background: linear-gradient(180deg, #fffaf1, #ffffff);
+      border: 1px solid rgba(242, 163, 58, 0.2);
+      border-radius: 18px;
+      padding: 18px;
+      margin-top: 18px;
+      color: #5f471b;
+      font-style: italic;
+      line-height: 1.6;
+    }
+
+    .materials {
+      display: grid;
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .material-link {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      text-decoration: none;
+      color: var(--text);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 16px 18px;
+      transition: 0.22s ease;
+    }
+
+    .material-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 24px rgba(80, 43, 170, 0.10);
+      border-color: rgba(107, 61, 240, 0.22);
+    }
+
+    .material-link small {
+      display: block;
+      color: var(--text-soft);
+      margin-top: 4px;
+      line-height: 1.4;
+    }
+
+    .material-link span:last-child {
+      font-size: 1.25rem;
+    }
+
+    .footer {
+      margin-top: 24px;
+      text-align: center;
+      color: var(--text-soft);
+      font-size: 0.92rem;
+      padding-bottom: 20px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 1100px) {
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .app {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        position: relative;
+        height: auto;
+        border-right: 0;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .main {
+        padding: 18px;
+      }
+
+      .hero {
+        padding: 22px;
+      }
+
+      .hero-top {
+        flex-direction: column;
+      }
+
+      .mini-cards {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .menu {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .menu button {
+        font-size: 0.9rem;
+        padding: 12px;
+      }
+
+      .section,
+      .panel {
+        padding: 18px;
+      }
+
+      .step {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <img src="logo.png" alt="Logo Musicala" />
+        <h1>Guía Docente Kick Boxing</h1>
+        <p>Bienestar, movimiento y energía desde una experiencia clara, segura y disfrutable.</p>
+      </div>
+
+      <nav class="menu">
+        <button class="active" data-section="inicio">🏠 Inicio</button>
+        <button data-section="proposito">🎯 Propósito</button>
+        <button data-section="guion">🗣️ Guion docente</button>
+        <button data-section="multinivel">🌱 Multinivel</button>
+        <button data-section="seguridad">⚠️ Seguridad</button>
+        <button data-section="material">🎥 Material</button>
+        <button data-section="seguimiento">🤝 Seguimiento</button>
+      </nav>
+
+      <div class="side-note">
+        <strong>Tip rápido para el profe</strong><br />
+        Este espacio no busca rendimiento extremo. Busca activar, cuidar y motivar. La gente ya tiene suficiente con sobrevivir correos, reuniones y sillas incómodas.
+      </div>
+    </aside>
+
+    <main class="main">
+      <section class="hero">
+        <div class="hero-top">
+          <div>
+            <h2>Taller empresarial de Kick Boxing 🥊</h2>
+            <p>
+              Una guía visual para que el docente conduzca la experiencia con seguridad,
+              claridad y buena energía, manteniendo el estilo cálido y profesional de Musicala.
+            </p>
+
+            <div class="badges">
+              <span class="badge">Movimiento consciente</span>
+              <span class="badge">Diversión sin presión</span>
+              <span class="badge">Adaptable a todos los niveles</span>
+            </div>
+          </div>
+
+          <div class="quick-box">
+            <strong>Idea central</strong>
+            <span>No es una clase de combate. Es una experiencia de activación corporal, descarga de tensión y motivación para moverse.</span>
+          </div>
+        </div>
+      </section>
+
+      <div class="content-grid">
+        <div class="panel">
+          <h3>Antes de empezar</h3>
+          <p>
+            Este aplicativo le da al docente una ruta simple para saber qué decir,
+            qué cuidar y cómo adaptar la sesión. Todo bonito, ordenado y sin esa estética de formulario triste que tanto le gusta producir a la humanidad.
+          </p>
+
+          <div class="mini-cards">
+            <div class="mini-card">
+              <div class="icon">💜</div>
+              <h4>Estilo Musicala</h4>
+              <p>Humano, cercano, claro y con energía amable.</p>
+            </div>
+            <div class="mini-card">
+              <div class="icon">🧠</div>
+              <h4>Rol del docente</h4>
+              <p>Guiar con seguridad, motivar sin exigir y adaptar cuando haga falta.</p>
+            </div>
+            <div class="mini-card">
+              <div class="icon">🦵</div>
+              <h4>Movimiento seguro</h4>
+              <p>Mejor una versión suave y bien hecha que una intensa y torpe.</p>
+            </div>
+            <div class="mini-card">
+              <div class="icon">🤝</div>
+              <h4>Canal correcto</h4>
+              <p>Si piden continuidad, se remite a Safe Mode, no al docente.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3>Resumen express</h3>
+          <ul class="bullet-list">
+            <li><strong>Objetivo:</strong> activar el cuerpo, liberar tensión y pasarla bien.</li>
+            <li><strong>Mensaje clave:</strong> cada quien va a su ritmo.</li>
+            <li><strong>Cuidado clave:</strong> no forzar, no sobrecargar, no competir.</li>
+            <li><strong>Adaptación:</strong> trabajar en multinivel siempre.</li>
+            <li><strong>Continuidad:</strong> todo va con el asesor de Safe Mode.</li>
+          </ul>
+        </div>
+      </div>
+
+      <section id="inicio" class="section active">
+        <div class="section-header">
+          <h3>Inicio de la experiencia</h3>
+          <span class="tag">Apertura sugerida</span>
+        </div>
+
+        <div class="callout primary">
+          “Hola a todos. Hoy vamos a vivir un espacio para movernos, activarnos y salir un poco de la rutina. No se trata de pelear ni de hacerlo perfecto. La idea es disfrutar, soltar tensión y conectar con el cuerpo desde el cuidado.”
+        </div>
+
+        <ul class="check-list">
+          <li><strong>Romper el hielo:</strong> bajar la ansiedad del grupo y quitar la idea de combate real.</li>
+          <li><strong>Dar permiso:</strong> aclarar que cada persona puede trabajar a su propio ritmo.</li>
+          <li><strong>Enmarcar bien:</strong> es bienestar corporal con elementos de kick boxing, no una clase competitiva.</li>
+        </ul>
+      </section>
+
+      <section id="proposito" class="section">
+        <div class="section-header">
+          <h3>Propósito del taller</h3>
+          <span class="tag">Qué buscamos</span>
+        </div>
+
+        <ul class="check-list">
+          <li><strong>Activar el cuerpo</strong> después de jornadas sedentarias o repetitivas.</li>
+          <li><strong>Liberar estrés</strong> a través del movimiento, la respiración y la coordinación.</li>
+          <li><strong>Motivar hábitos de movimiento</strong> desde una experiencia agradable y posible.</li>
+          <li><strong>Fortalecer energía y enfoque</strong> sin caer en exigencia excesiva.</li>
+          <li><strong>Hacerlo disfrutable</strong>, porque a veces la gente necesita una experiencia amable y no otro sermón sobre bienestar.</li>
+        </ul>
+
+        <div class="quote">
+          “Moverse también es cuidarse. No necesitamos perfección para que el cuerpo reciba el beneficio.”
+        </div>
+      </section>
+
+      <section id="guion" class="section">
+        <div class="section-header">
+          <h3>Guion práctico del docente</h3>
+          <span class="tag">Antes, durante y cierre</span>
+        </div>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-number">1</div>
+            <div>
+              <h4>Inicio</h4>
+              <p>
+                Presentar el espacio como una experiencia de movimiento, disfrute y activación.
+                Recordar que no hay competencia ni necesidad de “hacerlo duro”.
+              </p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-number">2</div>
+            <div>
+              <h4>Durante la sesión</h4>
+              <p>
+                Usar frases como: “cada uno a su ritmo”, “respiren”, “no es fuerza, es coordinación”,
+                “si necesitan bajar intensidad, está bien”.
+              </p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-number">3</div>
+            <div>
+              <h4>Cierre</h4>
+              <p>
+                Invitar a notar cómo se sienten después del movimiento. Cerrar con la idea de que moverse un poco ya genera un cambio real en energía, ánimo y cuerpo.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout success">
+          Frase útil: “Lo importante hoy no es hacerlo perfecto. Es darse el permiso de moverse.”
+        </div>
+      </section>
+
+      <section id="multinivel" class="section">
+        <div class="section-header">
+          <h3>Enfoque multinivel</h3>
+          <span class="tag">Fundamental</span>
+        </div>
+
+        <p style="color: var(--text-soft); line-height: 1.65; margin-top: 0;">
+          En el grupo puede haber personas sedentarias, con molestias físicas, poca coordinación,
+          fatiga, limitaciones articulares o simplemente cero costumbre de moverse. Lo normal, pues.
+          Por eso el docente debe ofrecer siempre varias intensidades.
+        </p>
+
+        <ul class="check-list">
+          <li><strong>Nivel 1:</strong> movimiento suave, sin impacto, a menor velocidad.</li>
+          <li><strong>Nivel 2:</strong> movimiento moderado, con más ritmo y algo de coordinación.</li>
+          <li><strong>Nivel 3:</strong> versión más energética, pero siempre controlada.</li>
+        </ul>
+
+        <div class="callout primary">
+          El grupo no tiene que verse homogéneo. Una buena clase multinivel permite que todos participen sin ponerse en riesgo.
+        </div>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-number">A</div>
+            <div>
+              <h4>Adaptación de golpes</h4>
+              <p>Quien lo necesite puede marcar el movimiento sin potencia y sin velocidad alta.</p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-number">B</div>
+            <div>
+              <h4>Adaptación de patadas</h4>
+              <p>Se puede reemplazar una patada por elevación de rodilla o por gesto parcial.</p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-number">C</div>
+            <div>
+              <h4>Adaptación de secuencias</h4>
+              <p>Se puede hacer la secuencia completa, una versión resumida o solo el patrón base.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="seguridad" class="section">
+        <div class="section-header">
+          <h3>Seguridad y prevención</h3>
+          <span class="tag">No lesionarse por entusiasmo</span>
+        </div>
+
+        <div class="callout warning">
+          Advertir siempre que nadie debe sobrecargarse, forzar rangos de movimiento ni exigirse por presión del grupo.
+        </div>
+
+        <ul class="check-list">
+          <li><strong>No trabajar con dolor.</strong> Si algo molesta, se adapta o se pausa.</li>
+          <li><strong>No forzar intensidad.</strong> Bienestar no es castigo disfrazado.</li>
+          <li><strong>No exagerar impacto.</strong> Especialmente en rodillas, espalda y cadera.</li>
+          <li><strong>Observar señales físicas.</strong> Mareo, dolor agudo, falta de aire excesiva o fatiga fuerte son señales para bajar.</li>
+          <li><strong>Validar el ritmo propio.</strong> No todo el mundo tiene que seguir el mismo tempo.</li>
+        </ul>
+
+        <div class="callout primary">
+          Frases recomendadas: “escuchen el cuerpo”, “háganlo desde una versión segura”, “mejor suave que lesionarse”.
+        </div>
+      </section>
+
+      <section id="material" class="section">
+        <div class="section-header">
+          <h3>Material de apoyo</h3>
+          <span class="tag">Links activos</span>
+        </div>
+
+        <p style="color: var(--text-soft); line-height: 1.65; margin-top: 0;">
+          Aquí encuentran referencias visuales para que el docente tome ideas de movimientos,
+          secuencias y combinaciones. Estos materiales son una guía, no una obligación rígida.
+        </p>
+
+        <div class="materials">
+          <a class="material-link" href="https://youtu.be/0tfFeVQRCFU" target="_blank" rel="noopener noreferrer">
+            <span>
+              <strong>Video guía de YouTube</strong>
+              <small>Rutina base para inspirar secuencias, entradas en calor y combinaciones de movimiento.</small>
+            </span>
+            <span>▶️</span>
+          </a>
+
+          <a class="material-link" href="https://www.tiktok.com/@fitnnes.bbc?_r=1&_t=ZS-959x8D9QaG5" target="_blank" rel="noopener noreferrer">
+            <span>
+              <strong>Referencia complementaria de TikTok</strong>
+              <small>Material adicional para tomar ideas rápidas, variantes y recursos más dinámicos.</small>
+            </span>
+            <span>🎵</span>
+          </a>
+        </div>
+
+        <div class="callout primary">
+          Importante: el docente debe adaptar siempre el contenido al espacio, al tiempo disponible y al nivel físico real del grupo.
+        </div>
+      </section>
+
+      <section id="seguimiento" class="section">
+        <div class="section-header">
+          <h3>Seguimiento y continuidad</h3>
+          <span class="tag">Canal institucional</span>
+        </div>
+
+        <div class="callout primary">
+          Si les preguntan por más sesiones, continuidad o nuevos talleres, el docente debe indicar que todo eso se revisa directamente con su asesor de Safe Mode.
+        </div>
+
+        <ul class="check-list">
+          <li><strong>No cerrar acuerdos directamente</strong> con participantes o empresas.</li>
+          <li><strong>Remitir siempre al asesor de Safe Mode</strong> como canal oficial.</li>
+          <li><strong>Safe Mode debe avisar</strong> para que se haga el seguimiento correspondiente desde el proceso.</li>
+        </ul>
+
+        <div class="quote">
+          “Qué bueno que les haya gustado. Todo lo relacionado con continuidad o nuevas sesiones lo revisan directamente con su asesor de Safe Mode, que es quien centraliza ese proceso.”
+        </div>
+      </section>
+
+      <div class="footer">
+        Musicala × Safe Mode · Guía docente interna de bienestar y movimiento
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const buttons = document.querySelectorAll(".menu button");
+    const sections = document.querySelectorAll(".section");
+
+    function activateSection(id) {
+      sections.forEach(section => {
+        section.classList.toggle("active", section.id === id);
+      });
+
+      buttons.forEach(button => {
+        button.classList.toggle("active", button.dataset.section === id);
+      });
+    }
+
+    buttons.forEach(button => {
+      button.addEventListener("click", () => {
+        activateSection(button.dataset.section);
+      });
+    });
+  </script>
+</body>
+</html>
